@@ -12,11 +12,12 @@ class LoginLayout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "demo@gogo.com",
-      password: "gogo123"
+      email: "",
+      password: ""
     };
   }
   onUserLogin() {
+    console.log(this.state)
     if (this.state.email !== "" && this.state.password !== "") {
       this.props.loginUser(this.state, this.props.history);
     }
@@ -27,6 +28,12 @@ class LoginLayout extends Component {
   }
   componentWillUnmount() {
     document.body.classList.remove("background");
+  }
+  setEmail = (e) => {
+    this.setState({ email: e.nativeEvent.target.value })
+  }
+  setPassword = (e) => {
+    this.setState({ password: e.nativeEvent.target.value })
   }
   render() {
     return (
@@ -58,11 +65,11 @@ class LoginLayout extends Component {
                     </CardTitle>
                     <Form>
                       <Label className="form-group has-float-label mb-4">
-                        <Input type="email" defaultValue={this.state.email} />
+                        <Input type="email" defaultValue={this.state.email} onChange={this.setEmail} />
                         <IntlMessages id="user.email" />
                       </Label>
                       <Label className="form-group has-float-label mb-4">
-                        <Input type="password" />
+                        <Input type="password" onChange={this.setPassword} />
                         <IntlMessages
                           id="user.password"
                           defaultValue={this.state.password}

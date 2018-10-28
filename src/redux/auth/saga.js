@@ -12,12 +12,16 @@ import {
     registerUserSuccess
 } from './actions';
 
-const loginWithEmailPasswordAsync = async (email, password) =>
-    await auth.signInWithEmailAndPassword(email, password)
+const userSession = async () =>
+    await auth.getUserSession()
         .then(authUser => authUser)
         .catch(error => error);
 
 
+const loginWithEmailPasswordAsync = async (email, password) =>
+    await auth.signInWithEmailAndPassword(email, password)
+        .then(authUser => authUser)
+        .catch(error => error);
 
 function* loginWithEmailPassword({ payload }) {
     const { email, password } = payload.user;
@@ -25,9 +29,13 @@ function* loginWithEmailPassword({ payload }) {
     try {
         const loginUser = yield call(loginWithEmailPasswordAsync, email, password);
         if (!loginUser.message) {
-            localStorage.setItem('user_id', loginUser.user.uid);
             yield put(loginUserSuccess(loginUser));
-            history.push('/');
+            const userSessionData = yield call(userSession);
+            if (!userSessionData.message) {
+                console.log(userSessionData)
+                // localStorage.setItem('user_id', userSessionData.user.uid);
+                history.push('/');
+            }
         } else {
             // catch throw
             console.log('login failed :', loginUser.message)
@@ -38,18 +46,17 @@ function* loginWithEmailPassword({ payload }) {
     }
 }
 
-const registerWithEmailPasswordAsync = async (email, password) =>
-    await auth.createUserWithEmailAndPassword(email, password)
+const registerWithEmailPasswordAsync = async (name, email, password, password_repeat) =>
+    await auth.createUserWithEmailAndPassword(name, email, password, password_repeat)
         .then(authUser => authUser)
         .catch(error => error);
 
 function* registerWithEmailPassword({ payload }) {
-    const { email, password } = payload.user;
+    const { name, email, password, password_repeat } = payload.user;
     const { history } = payload
     try {
-        const registerUser = yield call(registerWithEmailPasswordAsync, email, password);
+        const registerUser = yield call(registerWithEmailPasswordAsync, name, email, password, password_repeat);
         if (!registerUser.message) {
-            localStorage.setItem('user_id', registerUser.user.uid);
             yield put(registerUserSuccess(registerUser));
             history.push('/')
         } else {
@@ -69,10 +76,10 @@ const logoutAsync = async (history) => {
     history.push('/')
 }
 
-function* logout({payload}) {
+function* logout({ payload }) {
     const { history } = payload
     try {
-        yield call(logoutAsync,history);
+        yield call(logoutAsync, history);
         localStorage.removeItem('user_id');
     } catch (error) {
     }

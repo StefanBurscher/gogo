@@ -12,16 +12,18 @@ class RegisterLayout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "demo@gogo.com",
-      password: "gogo123",
-      name: "Sarah Kortney"
+      name: "",
+      email: "",
+      password: "",
+      password_repeat: ""
     };
   }
   onUserRegister() {
-    if (this.state.email !== "" && this.state.password !== "") {
+    console.log(this.state)
+    if (this.state.name !== "" && this.state.email !== "" && this.state.password !== "" && this.state.password_repeat !== "") {
       // This is for adding user to Firebase. Commented out for demo purpose.  
-      // this.props.registerUser(this.state, this.props.history);
-      this.props.history.push("/");
+      this.props.registerUser(this.state, this.props.history);
+      // this.props.history.push("/");
     }
   }
 
@@ -30,6 +32,18 @@ class RegisterLayout extends Component {
   }
   componentWillUnmount() {
     document.body.classList.remove("background");
+  }
+  setName = (e) => {
+    this.setState({ name: e.nativeEvent.target.value })
+  }
+  setEmail = (e) => {
+    this.setState({ email: e.nativeEvent.target.value })
+  }
+  setPassword = (e) => {
+    this.setState({ password: e.nativeEvent.target.value })
+  }
+  setPasswordRepeat = (e) => {
+    this.setState({ password_repeat: e.nativeEvent.target.value })
   }
   render() {
     return (
@@ -60,18 +74,25 @@ class RegisterLayout extends Component {
                     </CardTitle>
                     <Form>
                       <Label className="form-group has-float-label mb-4">
-                        <Input type="name" defaultValue={this.state.name} />
+                        <Input type="name" defaultValue={this.state.name} onChange={this.setName} />
                         <IntlMessages id="user.fullname" />
                       </Label>
                       <Label className="form-group has-float-label mb-4">
-                        <Input type="email" defaultValue={this.state.email} />
+                        <Input type="email" defaultValue={this.state.email} onChange={this.setEmail} />
                         <IntlMessages id="user.email" />
                       </Label>
                       <Label className="form-group has-float-label mb-4">
-                        <Input type="password" />
+                        <Input type="password" onChange={this.setPassword} />
                         <IntlMessages
                           id="user.password"
                           defaultValue={this.state.password}
+                        />
+                      </Label>
+                      <Label className="form-group has-float-label mb-4">
+                        <Input type="password" onChange={this.setPasswordRepeat} />
+                        <IntlMessages
+                          id="user.password_repeat"
+                          defaultValue={this.state.password_repeat}
                         />
                       </Label>
                       <div className="d-flex justify-content-end align-items-center">
