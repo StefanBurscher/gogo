@@ -20,7 +20,7 @@ import {
 
 import notifications from "Data/topnav.notifications.json";
 
-import { menuHiddenBreakpoint,searchPath } from "Constants/defaultValues";
+import { menuHiddenBreakpoint, searchPath } from "Constants/defaultValues";
 
 
 class TopNav extends Component {
@@ -63,7 +63,7 @@ class TopNav extends Component {
       } else {
         elem.classList.add("mobile-view");
       }
-    }else{
+    } else {
       this.search();
     }
   };
@@ -74,12 +74,12 @@ class TopNav extends Component {
   }
   handleSearchInputKeyPress(e) {
     if (e.key === 'Enter') {
-      this.search() 
+      this.search()
     }
   }
-  
+
   search() {
-    this.props.history.push(searchPath+"/"+this.state.searchKeyword)
+    this.props.history.push(searchPath + "/" + this.state.searchKeyword)
     this.setState({
       searchKeyword: ""
     });
@@ -175,14 +175,14 @@ class TopNav extends Component {
           </svg>
         </NavLink>
 
-    <div className="search" >
+        <div className="search" >
           <Input
             name="searchKeyword"
             id="searchKeyword"
             placeholder="Search.."
             value={this.state.searchKeyword}
             onChange={e => this.handleSearchInputChange(e)}
-            onKeyPress ={e=> this.handleSearchInputKeyPress(e)}
+            onKeyPress={e => this.handleSearchInputKeyPress(e)}
           />
           <span className="search-icon" onClick={e => this.handleSearchIconClick(e)}>
             <i className="simple-icon-magnifier" />
@@ -290,14 +290,14 @@ class TopNav extends Component {
               {this.state.isInFullScreen ? (
                 <i className="simple-icon-size-actual d-block" />
               ) : (
-                <i className="simple-icon-size-fullscreen d-block" />
-              )}
+                  <i className="simple-icon-size-fullscreen d-block" />
+                )}
             </button>
           </div>
           <div className="user d-inline-block">
             <UncontrolledDropdown className="dropdown-menu-right">
               <DropdownToggle className="p-0" color="empty">
-                <span className="name mr-1">Sarah Kortney</span>
+                <span className="name mr-1">{user.first_name + ' ' + user.last_name}</span>
                 <span>
                   <img alt="Profile" src="/assets/img/profile-pic-l.jpg" />
                 </span>
@@ -320,9 +320,10 @@ class TopNav extends Component {
   }
 }
 
-const mapStateToProps = ({ menu }) => {
+const mapStateToProps = ({ authUser, menu }) => {
   const { containerClassnames, menuClickCount } = menu;
-  return { containerClassnames, menuClickCount };
+  const { user } = authUser;
+  return { user, containerClassnames, menuClickCount };
 };
 export default connect(
   mapStateToProps,

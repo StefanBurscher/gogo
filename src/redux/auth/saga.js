@@ -60,7 +60,12 @@ function* registerWithEmailPassword({ payload }) {
         const registerUser = yield call(registerWithEmailPasswordAsync, name, email, password, password_repeat);
         if (!registerUser.message) {
             yield put(registerUserSuccess(registerUser));
-            history.push('/')
+            const userSessionData = yield call(userSession);
+            if (!userSessionData.message) {
+                console.log(userSessionData)
+                localStorage.setItem('user', userSessionData.data.data);
+                history.push('/')
+            }
         } else {
             // catch throw
             console.log('register failed :', registerUser.message)
