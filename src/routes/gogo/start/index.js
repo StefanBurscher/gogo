@@ -15,7 +15,7 @@ export default class extends Component {
     };
   }
   componentDidMount = async () => {
-    await social_network.getSleeves()
+    await social_network.getSleeves(1)
       .then((res) => {
         this.setState({ sleeves: res.data.data.items })
       })
