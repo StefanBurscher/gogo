@@ -33,7 +33,7 @@ function* loginWithEmailPassword({ payload }) {
             const userSessionData = yield call(userSession);
             if (!userSessionData.message) {
                 console.log(userSessionData)
-                localStorage.setItem('user_id', userSessionData.data.data.id);
+                localStorage.setItem('user', userSessionData.data.data);
                 history.push('/');
             }
         } else {
@@ -60,8 +60,6 @@ function* registerWithEmailPassword({ payload }) {
         const registerUser = yield call(registerWithEmailPasswordAsync, name, email, password, password_repeat);
         if (!registerUser.message) {
             yield put(registerUserSuccess(registerUser));
-            const userSessionData = yield call(userSession);
-            console.log(userSessionData)
             history.push('/')
         } else {
             // catch throw
@@ -84,7 +82,7 @@ function* logout({ payload }) {
     const { history } = payload
     try {
         yield call(logoutAsync, history);
-        localStorage.removeItem('user_id');
+        localStorage.removeItem('user');
     } catch (error) {
     }
 }

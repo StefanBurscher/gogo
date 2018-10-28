@@ -7,7 +7,7 @@ import {
 } from "Constants/actionTypes";
 
 const INIT_STATE = {
-  user: localStorage.getItem("user_id"),
+  user: localStorage.getItem("user"),
   loading: false
 };
 
