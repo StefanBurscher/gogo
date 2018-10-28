@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import IntlMessages from "Util/IntlMessages";
 import { Row, Card, CardBody, CardTitle, Button, Jumbotron } from "reactstrap";
+import { connect } from 'react-redux';
 
 import { Colxx, Separator } from "Components/CustomBootstrap";
 import BreadcrumbContainer from "Components/BreadcrumbContainer";

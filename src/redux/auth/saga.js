@@ -33,7 +33,7 @@ function* loginWithEmailPassword({ payload }) {
             const userSessionData = yield call(userSession);
             if (!userSessionData.message) {
                 localStorage.setItem('user', JSON.stringify(userSessionData.data.data));
-                history.push('/');
+                history.replace('/');
             }
         } else {
             // catch throw
@@ -63,7 +63,7 @@ function* registerWithEmailPassword({ payload }) {
             if (!userSessionData.message) {
                 console.log(userSessionData)
                 localStorage.setItem('user', JSON.stringify(userSessionData.data.data));
-                history.push('/')
+                history.replace('/')
             }
         } else {
             // catch throw
