@@ -17,7 +17,6 @@ class LoginLayout extends Component {
     };
   }
   onUserLogin() {
-    console.log(this.state)
     if (this.state.email !== "" && this.state.password !== "") {
       this.props.loginUser(this.state, this.props.history);
     }
