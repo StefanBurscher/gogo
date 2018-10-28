@@ -5,6 +5,7 @@ import {
   REGISTER_USER_SUCCESS,
   LOGOUT_USER
 } from "Constants/actionTypes";
+import { NotificationManager } from "Components/ReactNotifications";
 
 const INIT_STATE = {
   user: localStorage.getItem("user"),
@@ -16,13 +17,21 @@ export default (state = INIT_STATE, action) => {
     case LOGIN_USER:
       return { ...state, loading: true };
     case LOGIN_USER_SUCCESS:
-      notify.success('Login Success');
+      // notify.success('Login Success');
       return { ...state, loading: false, user: action.payload };
     case REGISTER_USER:
       return { ...state, loading: true };
     case REGISTER_USER_SUCCESS:
-      notify.success('Register User Success');
-      return { ...state, loading: false, user: action.payload };
+      // notify.success('Register User Success');
+      NotificationManager.success(
+        "Register User Success",
+        "Title here",
+        3000,
+        null,
+        null,
+        cName
+      );
+      return { ...state, loading: false, user: action.payload.id };
     case LOGOUT_USER:
       return { ...state, user: null };
     default:
