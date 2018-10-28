@@ -25,9 +25,15 @@ const auth = {
         return axios.post(`http://207.180.216.94/api/v1/users/logout`);
     }
 }
+const social_network = {
+    getSleeves: (uid) => {
+        return axios.get('http://207.180.216.94/api/v1/users/' + uid + '/sleeves')
+    }
+}
 const database = firebase.database();
 
 export {
     auth,
+    social_network,
     database
 };

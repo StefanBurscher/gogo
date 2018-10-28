@@ -6,4 +6,4 @@ const Colxx = (props) => (
 const Separator = (props) => (
     <div className={`separator ${props.className}`}></div>
 );
-export { Colxx,Separator }
+export { Colxx, Separator }

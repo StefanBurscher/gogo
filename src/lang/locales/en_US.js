@@ -37,7 +37,11 @@ module.exports = {
   "menu.chat": "Chat",
   "menu.survey": "Survey",
   "menu.todo": "Todo",
-  
+
+  "button.connect": "Connect",
+  "button.manage": "Manage",
+
+
 
 
 
@@ -45,5 +49,12 @@ module.exports = {
   "layouts.error-title": "Ooops... looks like an error occurred!",
   "layouts.error-code": "Error code",
   "layouts.go-back-home": "GO BACK HOME",
+
+
+  /* 04.Dashboards */
+  "dashboards.facebook": "Facebook",
+  "dashboards.instagram": "Instagram",
+  "dashboards.twitter": "Twitter",
+  "dashboards.linkedin": "LinkedIn",
 
 };
