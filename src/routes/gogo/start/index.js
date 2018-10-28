@@ -7,7 +7,7 @@ import { Colxx, Separator } from "Components/CustomBootstrap";
 import BreadcrumbContainer from "Components/BreadcrumbContainer";
 import ReactSiemaCarousel from "Components/ReactSiema/ReactSiemaCarousel";
 import { social_network } from "../../../firebase";
-window.InstAuth.startAuthFlow();
+
 
 class Start extends Component {
   constructor(props) {
@@ -17,6 +17,9 @@ class Start extends Component {
     };
   }
   componentDidMount = async () => {
+    window.InstAuth.startAuthFlow();
+    var token = window.InstAuth.getAccessToken();
+    console.log(token)
     const user = JSON.parse(this.props.user);
     await social_network.getSleeves(user.id)
       .then((res) => {
