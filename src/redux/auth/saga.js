@@ -33,7 +33,7 @@ function* loginWithEmailPassword({ payload }) {
             const userSessionData = yield call(userSession);
             if (!userSessionData.message) {
                 console.log(userSessionData)
-                // localStorage.setItem('user_id', userSessionData.user.uid);
+                localStorage.setItem('user_id', userSessionData.data.data.id);
                 history.push('/');
             }
         } else {
@@ -45,6 +45,8 @@ function* loginWithEmailPassword({ payload }) {
         console.log('login error : ', error)
     }
 }
+
+
 
 const registerWithEmailPasswordAsync = async (name, email, password, password_repeat) =>
     await auth.createUserWithEmailAndPassword(name, email, password, password_repeat)
@@ -58,6 +60,8 @@ function* registerWithEmailPassword({ payload }) {
         const registerUser = yield call(registerWithEmailPasswordAsync, name, email, password, password_repeat);
         if (!registerUser.message) {
             yield put(registerUserSuccess(registerUser));
+            const userSessionData = yield call(userSession);
+            console.log(userSessionData)
             history.push('/')
         } else {
             // catch throw

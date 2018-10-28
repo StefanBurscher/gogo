@@ -19,7 +19,10 @@ const auth = {
         })
     },
     getUserSession: () => {
-        return axios.get(`http://207.180.216.94/api/v1/users/me`); 
+        return axios.get(`http://207.180.216.94/api/v1/users/me`);
+    },
+    signOut: () => {
+        return axios.post(`http://207.180.216.94/api/v1/users/logout`);
     }
 }
 const database = firebase.database();
