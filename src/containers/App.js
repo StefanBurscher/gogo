@@ -39,6 +39,20 @@ const InitialPath = ({ component: Component, ...rest, authUser }) =>
 				/>}
 	/>;
 
+	const LoginPath = ({ component: Component, ...rest, authUser }) =>
+	<Route
+		{...rest}
+		render={props =>
+			authUser 
+				? <Component {...props} />
+				: <Redirect
+					to={{
+						pathname: '/',
+						state: { from: props.location }
+					}}
+				/>}
+	/>;
+
 class App extends Component {
 	render() {
 		const { location, match, user, locale } = this.props;
@@ -60,7 +74,12 @@ class App extends Component {
 								authUser={user}
 								component={MainRoute}
 							/>
-							<Route path={`/login`} component={login} />
+							<LoginPath
+								path={`${match.url}login`}
+								authUser={user}
+								component={login}
+							/>
+							{/* <Route path={`/login`} component={login} /> */}
 							<Route path={`/register`} component={register} />
 							<Route path={`/forgot-password`} component={forgotPassword} />
 							<Route path={`/error`} component={error} />
