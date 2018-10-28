@@ -47,7 +47,41 @@ const LoginPath = ({ component: Component, ...rest, authUser }) => {
 				? <Component {...props} />
 				: <Redirect
 					to={{
-						pathname: 'app/gogo/start',
+						pathname: '/',
+						state: { from: props.location }
+					}}
+				/>
+		}
+		}
+	/>;
+}
+
+const RegisterPath = ({ component: Component, ...rest, authUser }) => {
+	return <Route
+		{...rest}
+		render={props => {
+			return !authUser
+				? <Component {...props} />
+				: <Redirect
+					to={{
+						pathname: '/',
+						state: { from: props.location }
+					}}
+				/>
+		}
+		}
+	/>;
+}
+
+const ForgotPasswordPath = ({ component: Component, ...rest, authUser }) => {
+	return <Route
+		{...rest}
+		render={props => {
+			return !authUser
+				? <Component {...props} />
+				: <Redirect
+					to={{
+						pathname: '/',
 						state: { from: props.location }
 					}}
 				/>
@@ -82,9 +116,19 @@ class App extends Component {
 								authUser={user}
 								component={login}
 							/>
+							<RegisterPath
+								path={`/register`}
+								authUser={user}
+								component={register}
+							/>
+							<ForgotPasswordPath
+								path={`/forgot-password`}
+								authUser={user}
+								component={forgotPassword}
+							/>
 							{/* <Route path={`/login`} render={this.} component={login} /> */}
-							<Route path={`/register`} component={register} />
-							<Route path={`/forgot-password`} component={forgotPassword} />
+							{/* <Route path={`/register`} component={register} /> */}
+							{/* <Route path={`/forgot-password`} component={forgotPassword} /> */}
 							<Route path={`/error`} component={error} />
 							<Redirect to="/error" />
 						</Switch>
