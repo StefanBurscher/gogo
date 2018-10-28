@@ -29,7 +29,7 @@ const InitialPath = ({ component: Component, ...rest, authUser }) =>
 	<Route
 		{...rest}
 		render={props =>
-			authUser 
+			authUser
 				? <Component {...props} />
 				: <Redirect
 					to={{
@@ -39,35 +39,38 @@ const InitialPath = ({ component: Component, ...rest, authUser }) =>
 				/>}
 	/>;
 
-	const LoginPath = ({ component: Component, ...rest, authUser }) =>
-	<Route
+const LoginPath = ({ component: Component, ...rest, authUser }) => {
+	return <Route
 		{...rest}
-		render={props =>
-			authUser 
+		render={props => {
+			return !authUser
 				? <Component {...props} />
 				: <Redirect
 					to={{
-						pathname: '/',
+						pathname: 'app/gogo/start',
 						state: { from: props.location }
 					}}
-				/>}
+				/>
+		}
+		}
 	/>;
+}
 
 class App extends Component {
 	render() {
 		const { location, match, user, locale } = this.props;
 		const currentAppLocale = AppLocale[locale.locale];
-		if (location.pathname === '/'  || location.pathname==='/app'|| location.pathname==='/app/') {
+		if (location.pathname === '/' || location.pathname === '/app' || location.pathname === '/app/') {
 			return (<Redirect to={defaultStartPath} />);
 		}
 		return (
-				<Fragment>
-					<NotificationContainer />
-					<IntlProvider
-						locale={currentAppLocale.locale}
-						messages={currentAppLocale.messages}
-					>
-						<Fragment>
+			<Fragment>
+				<NotificationContainer />
+				<IntlProvider
+					locale={currentAppLocale.locale}
+					messages={currentAppLocale.messages}
+				>
+					<Fragment>
 						<Switch>
 							<InitialPath
 								path={`${match.url}app`}
@@ -75,19 +78,19 @@ class App extends Component {
 								component={MainRoute}
 							/>
 							<LoginPath
-								path={`${match.url}login`}
+								path={`/login`}
 								authUser={user}
 								component={login}
 							/>
-							{/* <Route path={`/login`} component={login} /> */}
+							{/* <Route path={`/login`} render={this.} component={login} /> */}
 							<Route path={`/register`} component={register} />
 							<Route path={`/forgot-password`} component={forgotPassword} />
 							<Route path={`/error`} component={error} />
 							<Redirect to="/error" />
 						</Switch>
-						</Fragment>
-					</IntlProvider>
-				</Fragment>
+					</Fragment>
+				</IntlProvider>
+			</Fragment>
 		);
 	}
 }
@@ -98,5 +101,5 @@ const mapStateToProps = ({ authUser, settings }) => {
 	return { user, locale };
 };
 
-export default connect(mapStateToProps,{  })(App);
+export default connect(mapStateToProps, {})(App);
 
