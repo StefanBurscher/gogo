@@ -29,11 +29,15 @@ function* loginWithEmailPassword({ payload }) {
     try {
         const loginUser = yield call(loginWithEmailPasswordAsync, email, password);
         if (!loginUser.message) {
+            console.log('a')
             yield put(loginUserSuccess(loginUser));
+            console.log('b')
             const userSessionData = yield call(userSession);
+            console.log('c')
             if (!userSessionData.message) {
                 console.log(userSessionData)
-                localStorage.setItem('user', userSessionData.data.data);
+                console.log('d')
+                localStorage.setItem('user', JSON.stringify(userSessionData.data.data));
                 history.push('/');
             }
         } else {
@@ -63,7 +67,7 @@ function* registerWithEmailPassword({ payload }) {
             const userSessionData = yield call(userSession);
             if (!userSessionData.message) {
                 console.log(userSessionData)
-                localStorage.setItem('user', userSessionData.data.data);
+                localStorage.setItem('user', JSON.stringify(userSessionData.data.data));
                 history.push('/')
             }
         } else {
