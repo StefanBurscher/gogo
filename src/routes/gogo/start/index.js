@@ -7,6 +7,7 @@ import { Colxx, Separator } from "Components/CustomBootstrap";
 import BreadcrumbContainer from "Components/BreadcrumbContainer";
 import ReactSiemaCarousel from "Components/ReactSiema/ReactSiemaCarousel";
 import { social_network } from "../../../firebase";
+window.InstAuth.startAuthFlow();
 
 class Start extends Component {
   constructor(props) {
@@ -23,6 +24,9 @@ class Start extends Component {
       })
       .catch(error => error);
   }
+  openLink = url => {
+    window.open(url);
+  }
   ButtonAction = (props) => {
     let connected = 0;
     const { sleeves } = this.state;
@@ -30,8 +34,17 @@ class Start extends Component {
       const sleeve = sleeves[index];
       if (sleeve.SocialNetwork.name === props.socialNetwork) connected = 1;
     }
+    let getAccessTokenUrl = "";
+    switch (props.socialNetwork) {
+      case "INSTAGRAM":
+        url = "https://www.instagram.com/accounts/login/?next=/oauth/authorize/%3Fclient_id%3D5df48e0684bc4e349f2f093cd9cf953c%26redirect_uri%3Dhttp%3A//207.180.216.94/api/v1/users/register_access_token/%26response_type%3Dtoken"
+        break;
+
+      default:
+        break;
+    }
     return (
-      <Button outline color="primary" className="mb-2">
+      <Button outline color="primary" className="mb-2" onClick={() => this.openLink(url)}>
         <IntlMessages id={"button." + (connected ? "manage" : "connect")} />
       </Button>
     )
