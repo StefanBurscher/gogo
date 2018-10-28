@@ -135,9 +135,7 @@ class TopNav extends Component {
 
   render() {
     const { containerClassnames, menuClickCount } = this.props;
-    console.log(this.props.user)
     const user = JSON.parse(this.props.user);
-    console.log(user)
     return (
       <nav className="navbar fixed-top">
         <NavLink

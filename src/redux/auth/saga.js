@@ -14,7 +14,7 @@ import {
 
 const userSession = async () =>
     await auth.getUserSession()
-        .then(authUser => authUser)
+        .then(session => session)
         .catch(error => error);
 
 
