@@ -7,7 +7,7 @@ import BreadcrumbContainer from "Components/BreadcrumbContainer";
 import ReactSiemaCarousel from "Components/ReactSiema/ReactSiemaCarousel";
 import { social_network } from "../../../firebase";
 
-export default class extends Component {
+class Start extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +15,8 @@ export default class extends Component {
     };
   }
   componentDidMount = async () => {
-    await social_network.getSleeves(1)
+    const user = JSON.parse(this.props.user);
+    await social_network.getSleeves(user.id)
       .then((res) => {
         this.setState({ sleeves: res.data.data.items })
       })
@@ -113,3 +114,11 @@ export default class extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ authUser }) => {
+  const { user } = authUser;
+  return { user };
+};
+export default connect(
+  mapStateToProps
+)(Start);
