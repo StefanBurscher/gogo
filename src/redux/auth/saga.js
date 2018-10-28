@@ -35,10 +35,12 @@ function* loginWithEmailPassword({ payload }) {
             const userSessionData = yield call(userSession);
             console.log('c')
             if (!userSessionData.message) {
-                console.log(userSessionData)
+                console.log(JSON.stringify(userSessionData.data.data))
                 console.log('d')
                 localStorage.setItem('user', JSON.stringify(userSessionData.data.data));
+                console.log('e')
                 history.push('/');
+                console.log('f')
             }
         } else {
             // catch throw
