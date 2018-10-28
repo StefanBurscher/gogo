@@ -33,7 +33,7 @@ function* loginWithEmailPassword({ payload }) {
             const userSessionData = yield call(userSession);
             if (!userSessionData.message) {
                 console.log(userSessionData)
-                localStorage.setItem('user', JSON.stringify(userSessionData.data.data));
+                localStorage.setItem('user', userSessionData.data.data);
                 history.push('/');
             }
         } else {
