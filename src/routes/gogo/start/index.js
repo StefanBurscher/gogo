@@ -21,6 +21,19 @@ export default class extends Component {
       })
       .catch(error => error);
   }
+  ButtonAction = (props) => {
+    let connected = 0;
+    const { sleeves } = this.state;
+    for (let index = 0; index < sleeves.length; index++) {
+      const sleeve = sleeves[index];
+      if (sleeve.SocialNetwork.name === props.socialNetwork) connected = 1;
+    }
+    return (
+      <Button outline color="primary" className="mb-2">
+        <IntlMessages id={"button." + (connected ? "manage" : "connect")} />
+      </Button>
+    )
+  }
   render() {
     console.log(this.state.sleeves)
     return (
@@ -44,12 +57,7 @@ export default class extends Component {
                     <p className="card-text font-weight-semibold mb-0">
                       <IntlMessages id="dashboards.facebook" />
                     </p>
-                    <Button outline color="primary" className="mb-2">
-                      <IntlMessages id="button.connect" />
-                    </Button>{" "}
-                    <Button outline color="primary" className="mb-2">
-                      <IntlMessages id="button.manage" />
-                    </Button>{" "}
+                    <this.ButtonAction socialNetwork="FACEBOOK" />
                   </CardBody>
                 </Card>
               </div>
@@ -64,7 +72,7 @@ export default class extends Component {
                     <p className="card-text font-weight-semibold mb-0">
                       <IntlMessages id="dashboards.instagram" />
                     </p>
-                    <p className="lead text-center">32</p>
+                    <this.ButtonAction socialNetwork="INSTAGRAM" />
                   </CardBody>
                 </Card>
               </div>
@@ -79,7 +87,7 @@ export default class extends Component {
                     <p className="card-text font-weight-semibold mb-0">
                       <IntlMessages id="dashboards.twitter" />
                     </p>
-                    <p className="lead text-center">74</p>
+                    <this.ButtonAction socialNetwork="TWITTER" />
                   </CardBody>
                 </Card>
               </div>
@@ -94,7 +102,7 @@ export default class extends Component {
                     <p className="card-text font-weight-semibold mb-0">
                       <IntlMessages id="dashboards.linkedin" />
                     </p>
-                    <p className="lead text-center">25</p>
+                    <this.ButtonAction socialNetwork="LINKEDIN" />
                   </CardBody>
                 </Card>
               </div>
