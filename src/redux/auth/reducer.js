@@ -29,7 +29,7 @@ export default (state = INIT_STATE, action) => {
         3000,
         null,
         null,
-        cName
+        ''
       );
       return { ...state, loading: false, user: action.payload.id };
     case LOGOUT_USER:
