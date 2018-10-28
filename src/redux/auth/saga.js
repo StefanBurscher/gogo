@@ -39,7 +39,7 @@ function* loginWithEmailPassword({ payload }) {
                 console.log('d')
                 localStorage.setItem('user', JSON.stringify(userSessionData.data.data));
                 console.log('e')
-                history.push('/');
+                // history.push('/');
                 console.log('f')
             }
         } else {
