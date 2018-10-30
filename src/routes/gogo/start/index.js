@@ -20,7 +20,10 @@ class Start extends Component {
     };
   }
   componentDidMount = async () => {
+    console.log(this.props)
+    console.log("test");
     const user = JSON.parse(this.props.user);
+    console.log("test2");
     await social_network.getSleeves(user.id)
       .then((res) => {
         this.setState({ sleeves: res.data.data.items })
