@@ -24,42 +24,13 @@ class Start extends Component {
       })
       .catch(error => error);
   }
-  openLink = url => {
-    window.open(url);
-  }
-  ButtonAction = (props) => {
-    let connected = 0;
-    const { sleeves } = this.state;
-    for (let index = 0; index < sleeves.length; index++) {
-      const sleeve = sleeves[index];
-      if (sleeve.SocialNetwork.name === props.socialNetwork) connected = 1;
-    }
-    let getAccessTokenUrl = "";
-    switch (props.socialNetwork) {
-      case "INSTAGRAM":
-        getAccessTokenUrl = "https://www.instagram.com/accounts/login/?next=/oauth/authorize/%3Fclient_id%3D5df48e0684bc4e349f2f093cd9cf953c%26redirect_uri%3Dhttp%3A//207.180.216.94/api/v1/users/register_access_token/%26response_type%3Dcode"
-        break;
-
-      default:
-        break;
-    }
-    return (
-      connected ?
-        <Button outline color="primary" className="mb-2" onClick={() => this.openLink(getAccessTokenUrl)}>
-          <IntlMessages id={"button.manage"} />
-        </Button> :
-        <Button outline color="primary" className="mb-2" onClick={() => this.openLink(getAccessTokenUrl)}>
-          <IntlMessages id={"button.connect"} />
-        </Button>
-    )
-  }
   render() {
     return (
       <Fragment>
         <Row>
           <Colxx xxs="12">
             <BreadcrumbContainer
-              heading={<IntlMessages id="menu.start" />}
+              heading={<IntlMessages id="menu.page" />}
               match={this.props.match}
             />
             <Separator className="mb-5" />
@@ -75,52 +46,7 @@ class Start extends Component {
                     <p className="card-text font-weight-semibold mb-0">
                       <IntlMessages id="dashboards.facebook" />
                     </p>
-                    <this.ButtonAction socialNetwork="FACEBOOK" />
-                  </CardBody>
-                </Card>
-              </div>
-            </div>
-          </Colxx>
-          <Colxx md="3" xs="12">
-            <div className="icon-cards-row">
-              <div className="icon-row-item">
-                <Card className="mb-4">
-                  <CardBody className="text-center">
-                    <i className="iconsmind-Instagram" />
-                    <p className="card-text font-weight-semibold mb-0">
-                      <IntlMessages id="dashboards.instagram" />
-                    </p>
-                    <this.ButtonAction socialNetwork="INSTAGRAM" />
-                  </CardBody>
-                </Card>
-              </div>
-            </div>
-          </Colxx>
-          <Colxx md="3" xs="12">
-            <div className="icon-cards-row">
-              <div className="icon-row-item">
-                <Card className="mb-4">
-                  <CardBody className="text-center">
-                    <i className="iconsmind-Twitter" />
-                    <p className="card-text font-weight-semibold mb-0">
-                      <IntlMessages id="dashboards.twitter" />
-                    </p>
-                    <this.ButtonAction socialNetwork="TWITTER" />
-                  </CardBody>
-                </Card>
-              </div>
-            </div>
-          </Colxx>
-          <Colxx md="3" xs="12">
-            <div className="icon-cards-row">
-              <div className="icon-row-item">
-                <Card className="mb-4">
-                  <CardBody className="text-center">
-                    <i className="iconsmind-Linkedin" />
-                    <p className="card-text font-weight-semibold mb-0">
-                      <IntlMessages id="dashboards.linkedin" />
-                    </p>
-                    <this.ButtonAction socialNetwork="LINKEDIN" />
+                    {/* <this.ButtonAction socialNetwork="FACEBOOK" /> */}
                   </CardBody>
                 </Card>
               </div>
