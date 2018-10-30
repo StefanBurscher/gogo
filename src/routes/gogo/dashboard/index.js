@@ -7,9 +7,6 @@ import { Colxx, Separator } from "Components/CustomBootstrap";
 import BreadcrumbContainer from "Components/BreadcrumbContainer";
 import ReactSiemaCarousel from "Components/ReactSiema/ReactSiemaCarousel";
 import { social_network } from "../../../firebase";
-import {
-  setCurrentSocialNetwork
-} from "Redux/actions";
 
 
 class Start extends Component {
@@ -32,9 +29,6 @@ class Start extends Component {
   openLink = url => {
     window.open(url);
   }
-  selectPage = socialNetwork => {
-    this.props.setCurrentSocialNetwork(socialNetwork)
-  }
   ButtonAction = (props) => {
     let connected = 0;
     const { sleeves } = this.state;
@@ -53,7 +47,7 @@ class Start extends Component {
     }
     return (
       connected ?
-        <Button outline color="primary" className="mb-2" onClick={() => this.selectPage(props.socialNetwork)}>
+        <Button outline color="primary" className="mb-2" onClick={() => this.openLink(getAccessTokenUrl)}>
           <IntlMessages id={"button.manage"} />
         </Button> :
         <Button outline color="primary" className="mb-2" onClick={() => this.openLink(getAccessTokenUrl)}>
@@ -141,15 +135,10 @@ class Start extends Component {
   }
 }
 
-const mapStateToProps = ({ authUser, flow }) => {
+const mapStateToProps = ({ authUser }) => {
   const { user } = authUser;
-  const { socialNetwork } = flow;
-  return {
-    user,
-    socialNetwork
-  };
+  return { user };
 };
 export default connect(
-  mapStateToProps,
-  { setCurrentSocialNetwork }
+  mapStateToProps
 )(Start);
