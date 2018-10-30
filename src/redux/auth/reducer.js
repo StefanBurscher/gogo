@@ -16,9 +16,6 @@ export default (state = INIT_STATE, action) => {
   switch (action.type) {
     case LOGIN_USER:
       return { ...state, loading: true };
-    case LOGIN_USER_SUCCESS:
-      // notify.success('Login Success');
-      return { ...state, loading: false, user: action.payload };
     case REGISTER_USER:
       return { ...state, loading: true };
     case REGISTER_USER_SUCCESS:
