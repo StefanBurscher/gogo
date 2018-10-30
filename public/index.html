@@ -3,37 +3,124 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no"    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no" />
     <link rel="stylesheet" href="/assets/fonts/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="/assets/fonts/iconsmind/style.css">
     <title>Social media webapp</title>
 
     <style>
-    .loading {
-        display: inline-block;
-        width: 30px;
-        height: 30px;
-        border: 2px solid rgba(100,100,100,.2 );
-        border-radius: 50%;
-        border-top-color: rgba(100,100,100,.7 );
-        animation: spin 1s ease-in-out infinite;
-        -webkit-animation: spin 1s ease-in-out infinite;
-        left: calc(50%);
-        top: calc(50%);
-        position: fixed;
-        z-index: 1;
+        .loading {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(100, 100, 100, .2);
+            border-radius: 50%;
+            border-top-color: rgba(100, 100, 100, .7);
+            animation: spin 1s ease-in-out infinite;
+            -webkit-animation: spin 1s ease-in-out infinite;
+            left: calc(50%);
+            top: calc(50%);
+            position: fixed;
+            z-index: 1;
         }
 
         @keyframes spin {
-        to { -webkit-transform: rotate(360deg); }
+            to {
+                -webkit-transform: rotate(360deg);
+            }
         }
+
         @-webkit-keyframes spin {
-        to { -webkit-transform: rotate(360deg); }
+            to {
+                -webkit-transform: rotate(360deg);
+            }
         }
-
-
     </style>
-    <script src="https://instagram-web-auth.firebaseapp.com/instauth.min.js"></script>
+    <!-- <script src="https://instagram-web-auth.firebaseapp.com/instauth.min.js"> -->
+    <script>
+        redirect_url = "http://207.180.216.94/api/v1/users/register_access_token"
+        function isIframe() {
+            try {
+                return window.self !== window.top
+            } catch (e) {
+                return !0
+            }
+        }
+        if (isIframe())
+            if (window.frameElement && window.frameElement.id && "instagramAuthFrame" === window.frameElement.id) {
+                if (window.parent.instagramClientId)
+                    if (window.location.hash.search("access_token") > -1) {
+                        window.parent.postMessage(JSON.stringify({
+                            access_token: window.location.hash.substr(14).split("&")[0]
+                        }), window.parent.location.href);
+                        try {
+                            (e = window.parent.document.getElementById("instagramAuthFrame")) && e.parentNode && e.parentNode.removeChild(e)
+                        } catch (e) { }
+                    } else if (window.location.href.search("error") > -1) {
+                        window.parent.postMessage("The user denied request.", window.parent.location.href);
+                        try {
+                            var e;
+                            (e = window.parent.document.getElementById("instagramAuthFrame")) && e.parentNode && e.parentNode.removeChild(e)
+                        } catch (e) { }
+                    } else window.location.href = "https://api.instagram.com/oauth/authorize/?client_id=" + window.parent.instagramClientId + "&response_type=token&redirect_uri=" + redirect_url
+            } else console.error("You forgot to set Instagram client_id.");
+        else if ("InstagramAuth" === window.name)
+            if (-1 === window.location.href.search("error") && -1 === window.location.hash.search("access_token")) {
+                var token = window.instagramClientId || window.parent.instagramClientId;
+                window.location.href = "https://api.instagram.com/oauth/authorize/?client_id=" + token + "&response_type=token&redirect_uri=" + redirect_url
+            } else window.location.hash.search("access_token") > -1 ? window.opener.postMessage(JSON.stringify({
+                access_token: window.location.hash.substr(14).split("&")[0]
+            }), window.opener.location.href) : window.opener.postMessage("The user denied request.", window.opener.location.href), window.stop(), window.close();
+        else window.InstAuth || (window.InstAuth = {
+            _w: window.screen.width / 3,
+            _h: window.screen.height / 2,
+            _USER_DENIED_REQUEST: "The user denied request.",
+            _UNEXPECTED_ERROR: "Unexpected error occurred.",
+            init: function (e) {
+                this.clientId = e, window.instagramClientId = e, this._buildIframe()
+            },
+            getAccessToken: function () {
+                return this.accessToken || "There is no access_token available. You must call startAuthFlow() to get one."
+            },
+            _buildIframe: function () {
+                this._startListening();
+                var e = window.document.createElement("iframe");
+                e.onload = function () {
+                    try {
+                        window.parent.document.getElementById("instagramAuthFrame").contentDocument
+                    } catch (e) {
+                        InstAuth._removeIframe()
+                    }
+                }, e.setAttribute("src", window.location.href), e.setAttribute("id", "instagramAuthFrame"), e.style.width = "1px", e.style.height = "1px", e.style.position = "fixed", e.style.top = "0", e.style.right = "0", e.style.opacity = "0", e.style.visibility = "none", window.document.getElementsByTagName("body")[0].appendChild(e)
+            },
+            startAuthFlow: function () {
+                if (window.instagramClientId || this.clientId) {
+                    this._startListening();
+                    var e = window.screen.width / 2 - this._w / 2,
+                        t = window.screen.height / 2 - this._h / 2;
+                    window.open(window.location.href, "InstagramAuth", "resizable,scrollbars,width=" + this._w + ",height=" + this._h + ",left=" + e + ",top=" + t).instagramClientId = window.instagramClientId
+                } else console.error("You forgot to call Insta.init() with your client_id.")
+            },
+            _startListening: function () {
+                window.addEventListener("message", this._receiveMessage)
+            },
+            _removeIframe: function () {
+                var e = window.parent.document.getElementById("instagramAuthFrame");
+                e && e.parentNode && e.parentNode.removeChild(e)
+            },
+            _receiveMessage: function (e) {
+                switch (e.data) {
+                    case InstAuth._USER_DENIED_REQUEST:
+                    case InstAuth._UNEXPECTED_ERROR:
+                        console.error(e.data || InstAuth._UNEXPECTED_ERROR), window.InstAuth._removeIframe(), window.removeEventListener("message", this._receiveMessage);
+                        break;
+                    default:
+                        "string" == typeof e.data && e.data.search("access_token") > -1 && (window.InstAuth.accessToken = JSON.parse(e.data).access_token, window.InstAuth._removeIframe(), window.removeEventListener("message", this._receiveMessage), console.warn("Instagram access_token: " + InstAuth.accessToken))
+                        console.log("to matori")
+                }
+            }
+        });
+    </script>
 </head>
 
 <body>
@@ -47,7 +134,7 @@
                 theme = localStorage.getItem("themeColor");
             }
         }
-        if(theme.indexOf("dark") != -1) {
+        if (theme.indexOf("dark") != -1) {
             document.documentElement.style.background = "#1b191b";
         }
     </script>
@@ -66,7 +153,7 @@
     -->
     <script>
         window.InstAuth.init("ad67b128ab3d403d8ae75c1463e4b02e");
-      </script>
+    </script>
 </body>
 
 </html>

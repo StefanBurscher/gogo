@@ -17,7 +17,6 @@ class Start extends Component {
     };
   }
   componentDidMount = async () => {
-    window.InstAuth.startAuthFlow();
     var token = window.InstAuth.getAccessToken();
     console.log(token)
     const user = JSON.parse(this.props.user);
@@ -47,9 +46,10 @@ class Start extends Component {
         break;
     }
     return (
-      <Button outline color="primary" className="mb-2" onClick={() => this.openLink(getAccessTokenUrl)}>
+      // <Button outline color="primary" className="mb-2" onClick={() => this.openLink(getAccessTokenUrl)}>
+      <Button outline color="primary" className="mb-2" onClick={() => window.InstAuth.startAuthFlow()}>
         <IntlMessages id={"button." + (connected ? "manage" : "connect")} />
-      </Button>
+      </Button >
     )
   }
   render() {
