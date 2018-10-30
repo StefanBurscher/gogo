@@ -32,6 +32,7 @@ class Start extends Component {
   }
   selectPage = socialNetwork => {
     this.props.setCurrentSocialNetwork(socialNetwork)
+    history.push('app/gogo/page');
   }
   ButtonAction = (props) => {
     let connected = 0;
