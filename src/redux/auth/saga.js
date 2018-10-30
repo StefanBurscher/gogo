@@ -34,7 +34,7 @@ function* loginWithEmailPassword({ payload }) {
             if (!userSessionData.message) {
                 localStorage.setItem('user', JSON.stringify(userSessionData.data.data));
                 console.log(history)
-                history.replace('/');
+                history.push('/');
             }
         } else {
             // catch throw
