@@ -32,6 +32,7 @@ class Start extends Component {
   }
   selectPage = socialNetwork => {
     this.props.setCurrentSocialNetwork(socialNetwork)
+    localStorage.setItem('socialNetwork', socialNetwork);
     this.props.history.push('/app/gogo/page');
   }
   ButtonAction = (props) => {
@@ -52,10 +53,10 @@ class Start extends Component {
     }
     return (
       connected ?
-        <Button outline color="primary" className={"mb-2 " + connect} onClick={() => this.selectPage(props.socialNetwork)}>
+        <Button outline color="primary" className="mb-2" onClick={() => this.selectPage(props.socialNetwork)}>
           <IntlMessages id={"button.manage"} />
         </Button> :
-        <Button outline color="primary" className={"mb-2 " + connect} onClick={() => this.openLink(getAccessTokenUrl)}>
+        <Button outline color="primary" className="mb-2" onClick={() => this.openLink(getAccessTokenUrl)}>
           <IntlMessages id={"button.connect"} />
         </Button>
     )

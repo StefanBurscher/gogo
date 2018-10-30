@@ -28,8 +28,8 @@ module.exports = {
 
   /* 03.Menu */
   "menu.app": "Home",
-  "menu.gogo": "Gogo",
-  "menu.start": "Social network selector",
+  "menu.gogo": "Social network",
+  "menu.start": "Selector",
   "menu.page": "Business page",
   "menu.businessque": "Business questions",
   "menu.campaignque": "Campaign questions",

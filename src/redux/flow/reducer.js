@@ -3,7 +3,7 @@ import {
 } from 'Constants/actionTypes';
 
 const INIT_STATE = {
-	socialNetwork: ""
+	socialNetwork: localStorage.getItem("socialNetwork")
 };
 
 export default (state = INIT_STATE, action) => {
