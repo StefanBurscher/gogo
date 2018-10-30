@@ -246,11 +246,11 @@ class Sidebar extends Component {
                     to="/app/gogo"
                     onClick={e => this.openSubMenu(e, "gogo")}
                   >
-                    <i className="iconsmind-Air-Balloon" />{" "}
+                    <i className="iconsmind-Business-ManWoman" />{" "}
                     <IntlMessages id="menu.gogo" />
                   </NavLink>
                 </NavItem>
-                <NavItem
+                {/* <NavItem
                   className={classnames({
                     active: this.state.selectedParentMenu == "second-menu"
                   })}
@@ -262,7 +262,7 @@ class Sidebar extends Component {
                     <i className="iconsmind-Chemical-3" />{" "}
                     <IntlMessages id="menu.second-menu" />
                   </NavLink>
-                </NavItem>
+                </NavItem> */}
               </Nav>
             </PerfectScrollbar>
           </div>
@@ -281,43 +281,43 @@ class Sidebar extends Component {
               >
                 <NavItem>
                   <NavLink to="/app/gogo/start">
-                    <i className="simple-icon-paper-plane" />{" "}
+                    <i className="iconsmind-Cursor-Select" />{" "}
                     <IntlMessages id="menu.start" />
                   </NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink to="/app/gogo/page">
-                    <i className="simple-icon-paper-plane" />{" "}
+                    <i className="iconsmind-Testimonal" />{" "}
                     <IntlMessages id="menu.page" />
                   </NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink to="/app/gogo/businessque">
-                    <i className="simple-icon-paper-plane" />{" "}
+                    <i className="iconsmind-Check" />{" "}
                     <IntlMessages id="menu.businessque" />
                   </NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink to="/app/gogo/campaignque">
-                    <i className="simple-icon-paper-plane" />{" "}
+                    <i className="iconsmind-Check-2" />{" "}
                     <IntlMessages id="menu.campaignque" />
                   </NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink to="/app/gogo/campaigndetails">
-                    <i className="simple-icon-paper-plane" />{" "}
+                    <i className="iconsmind-Target-Market" />{" "}
                     <IntlMessages id="menu.campaigndetails" />
                   </NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink to="/app/gogo/dashboard">
-                    <i className="simple-icon-paper-plane" />{" "}
+                    <i className="iconsmind-Monitor-Analytics" />{" "}
                     <IntlMessages id="menu.dashboard" />
                   </NavLink>
                 </NavItem>
               </Nav>
 
-              <Nav
+              {/* <Nav
                 className={classnames({
                   "d-block": this.state.selectedParentMenu == "second-menu"
                 })}
@@ -329,7 +329,7 @@ class Sidebar extends Component {
                     <IntlMessages id="menu.second" />
                   </NavLink>
                 </NavItem>
-              </Nav>
+              </Nav> */}
             </PerfectScrollbar>
           </div>
         </div>
