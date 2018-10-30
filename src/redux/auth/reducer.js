@@ -18,11 +18,11 @@ export default (state = INIT_STATE, action) => {
       return { ...state, loading: true };
     case LOGIN_USER_SUCCESS:
       // notify.success('Login Success');
-      return { ...state, loading: false, user: "" };
+      return { ...state, loading: false, user: action.payload };
     case REGISTER_USER:
       return { ...state, loading: true };
     case REGISTER_USER_SUCCESS:
-      return { ...state, loading: false, user: "" };
+      return { ...state, loading: false, user: action.payload };
     case LOGOUT_USER:
       return { ...state, user: null };
     default:

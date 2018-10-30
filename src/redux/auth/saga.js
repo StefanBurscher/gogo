@@ -14,7 +14,7 @@ import {
 
 const userSession = async () =>
     await auth.getUserSession()
-        .then(session => session)
+        .then(session => session.data.data)
         .catch(error => error);
 
 
@@ -29,12 +29,11 @@ function* loginWithEmailPassword({ payload }) {
     try {
         const loginUser = yield call(loginWithEmailPasswordAsync, email, password);
         if (!loginUser.message) {
-            yield put(loginUserSuccess(loginUser));
             const userSessionData = yield call(userSession);
             if (!userSessionData.message) {
-                localStorage.setItem('user', JSON.stringify(userSessionData.data.data));
-                console.log(history)
-                history.push('/');
+                yield put(loginUserSuccess(userSessionData));
+                localStorage.setItem('user', JSON.stringify(userSessionData));
+                history.replace('/');
             }
         } else {
             // catch throw
@@ -45,8 +44,6 @@ function* loginWithEmailPassword({ payload }) {
         console.log('login error : ', error)
     }
 }
-
-
 
 const registerWithEmailPasswordAsync = async (name, email, password, password_repeat) =>
     await auth.createUserWithEmailAndPassword(name, email, password, password_repeat)
@@ -59,11 +56,10 @@ function* registerWithEmailPassword({ payload }) {
     try {
         const registerUser = yield call(registerWithEmailPasswordAsync, name, email, password, password_repeat);
         if (!registerUser.message) {
-            yield put(registerUserSuccess(registerUser));
             const userSessionData = yield call(userSession);
             if (!userSessionData.message) {
-                console.log(userSessionData)
-                localStorage.setItem('user', JSON.stringify(userSessionData.data.data));
+                yield put(registerUserSuccess(userSessionData));
+                localStorage.setItem('user', JSON.stringify(userSessionData));
                 history.replace('/')
             }
         } else {
