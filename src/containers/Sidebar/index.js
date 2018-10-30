@@ -159,7 +159,7 @@ class Sidebar extends Component {
       });
     } else if (this.state.selectedParentMenu == "") {
       this.setState({
-        selectedParentMenu: "gogo"
+        selectedParentMenu: "networks"
       });
     }
   }
@@ -239,15 +239,15 @@ class Sidebar extends Component {
               <Nav vertical className="list-unstyled">
                 <NavItem
                   className={classnames({
-                    active: this.state.selectedParentMenu == "gogo"
+                    active: this.state.selectedParentMenu == "networks"
                   })}
                 >
                   <NavLink
-                    to="/app/gogo"
-                    onClick={e => this.openSubMenu(e, "gogo")}
+                    to="/app/networks"
+                    onClick={e => this.openSubMenu(e, "networks")}
                   >
                     <i className="iconsmind-Business-ManWoman" />{" "}
-                    <IntlMessages id="menu.gogo" />
+                    <IntlMessages id="menu.networks" />
                   </NavLink>
                 </NavItem>
                 {/* <NavItem
@@ -275,42 +275,42 @@ class Sidebar extends Component {
             >
               <Nav
                 className={classnames({
-                  "d-block": this.state.selectedParentMenu == "gogo"
+                  "d-block": this.state.selectedParentMenu == "networks"
                 })}
-                data-parent="gogo"
+                data-parent="networks"
               >
                 <NavItem>
-                  <NavLink to="/app/gogo/start">
+                  <NavLink to="/app/networks/start">
                     <i className="iconsmind-Cursor-Select" />{" "}
                     <IntlMessages id="menu.start" />
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink to="/app/gogo/page">
+                  <NavLink to="/app/networks/page">
                     <i className="iconsmind-Testimonal" />{" "}
                     <IntlMessages id="menu.page" />
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink to="/app/gogo/businessque">
+                  <NavLink to="/app/networks/businessque">
                     <i className="iconsmind-Check" />{" "}
                     <IntlMessages id="menu.businessque" />
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink to="/app/gogo/campaignque">
+                  <NavLink to="/app/networks/campaignque">
                     <i className="iconsmind-Check-2" />{" "}
                     <IntlMessages id="menu.campaignque" />
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink to="/app/gogo/campaigndetails">
+                  <NavLink to="/app/networks/campaigndetails">
                     <i className="iconsmind-Target-Market" />{" "}
                     <IntlMessages id="menu.campaigndetails" />
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink to="/app/gogo/dashboard">
+                  <NavLink to="/app/networks/dashboard">
                     <i className="iconsmind-Monitor-Analytics" />{" "}
                     <IntlMessages id="menu.dashboard" />
                   </NavLink>

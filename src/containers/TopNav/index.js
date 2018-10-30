@@ -209,7 +209,7 @@ class TopNav extends Component {
                 >
                   <NavLink to="#" className="icon-menu-item">
                     <i className="iconsmind-Air-Balloon d-block" />{" "}
-                    <IntlMessages id="menu.gogo" />
+                    <IntlMessages id="menu.networks" />
                   </NavLink>
                   <NavLink to="#" className="icon-menu-item">
                     <i className="iconsmind-Pantone d-block" />{" "}
