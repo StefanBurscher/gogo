@@ -20,8 +20,6 @@ class Start extends Component {
     };
   }
   componentDidMount = async () => {
-    var token = window.InstAuth.getAccessToken();
-    console.log(token)
     const user = JSON.parse(this.props.user);
     await social_network.getSleeves(user.id)
       .then((res) => {
@@ -53,10 +51,10 @@ class Start extends Component {
     }
     return (
       connected ?
-        <Button outline color="primary" className="mb-2" onClick={() => this.selectPage(props.socialNetwork)}>
+        <Button outline color="primary" className={"mb-2 " + connect} onClick={() => this.selectPage(props.socialNetwork)}>
           <IntlMessages id={"button.manage"} />
         </Button> :
-        <Button outline color="primary" className="mb-2" onClick={() => this.openLink(getAccessTokenUrl)}>
+        <Button outline color="primary" className={"mb-2 " + connect} onClick={() => this.openLink(getAccessTokenUrl)}>
           <IntlMessages id={"button.connect"} />
         </Button>
     )
