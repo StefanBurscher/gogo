@@ -19,7 +19,6 @@ class RegisterLayout extends Component {
     };
   }
   onUserRegister() {
-    console.log(this.state)
     if (this.state.name !== "" && this.state.email !== "" && this.state.password !== "" && this.state.password_repeat !== "") {
       // This is for adding user to Firebase. Commented out for demo purpose.  
       this.props.registerUser(this.state, this.props.history);

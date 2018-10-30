@@ -18,7 +18,6 @@ class Start extends Component {
   }
   componentDidMount = async () => {
     var token = window.InstAuth.getAccessToken();
-    console.log(token)
     const user = JSON.parse(this.props.user);
     await social_network.getSleeves(user.id)
       .then((res) => {
@@ -56,8 +55,6 @@ class Start extends Component {
     )
   }
   render() {
-    console.log(this.props.socialNetwork)
-    console.log(this.state.sleeves)
     return (
       <Fragment>
         <Row>
