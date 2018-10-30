@@ -14,7 +14,7 @@ import {
 
 const userSession = async () =>
     await auth.getUserSession()
-        .then(session => session.data.data)
+        .then(session => session)
         .catch(error => error);
 
 
@@ -31,8 +31,8 @@ function* loginWithEmailPassword({ payload }) {
         if (!loginUser.message) {
             const userSessionData = yield call(userSession);
             if (!userSessionData.message) {
-                yield put(loginUserSuccess(userSessionData));
-                localStorage.setItem('user', JSON.stringify(userSessionData));
+                yield put(loginUserSuccess(JSON.stringify(userSessionData.data.data)));
+                localStorage.setItem('user', JSON.stringify(userSessionData.data.data));
                 history.replace('/');
             }
         } else {
@@ -58,8 +58,8 @@ function* registerWithEmailPassword({ payload }) {
         if (!registerUser.message) {
             const userSessionData = yield call(userSession);
             if (!userSessionData.message) {
-                yield put(registerUserSuccess(userSessionData));
-                localStorage.setItem('user', JSON.stringify(userSessionData));
+                yield put(registerUserSuccess(JSON.stringify(userSessionData.data.data)));
+                localStorage.setItem('user', JSON.stringify(userSessionData.data.data));
                 history.replace('/')
             }
         } else {
