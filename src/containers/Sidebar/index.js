@@ -285,6 +285,36 @@ class Sidebar extends Component {
                     <IntlMessages id="menu.start" />
                   </NavLink>
                 </NavItem>
+                <NavItem>
+                  <NavLink to="/app/gogo/page">
+                    <i className="simple-icon-paper-plane" />{" "}
+                    <IntlMessages id="menu.page" />
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink to="/app/gogo/businessque">
+                    <i className="simple-icon-paper-plane" />{" "}
+                    <IntlMessages id="menu.businessque" />
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink to="/app/gogo/campaignque">
+                    <i className="simple-icon-paper-plane" />{" "}
+                    <IntlMessages id="menu.campaignque" />
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink to="/app/gogo/campaigndetails">
+                    <i className="simple-icon-paper-plane" />{" "}
+                    <IntlMessages id="menu.campaigndetails" />
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink to="/app/gogo/dashboard">
+                    <i className="simple-icon-paper-plane" />{" "}
+                    <IntlMessages id="menu.dashboard" />
+                  </NavLink>
+                </NavItem>
               </Nav>
 
               <Nav

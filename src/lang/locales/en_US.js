@@ -29,7 +29,12 @@ module.exports = {
   /* 03.Menu */
   "menu.app": "Home",
   "menu.gogo": "Gogo",
-  "menu.start": "Start",
+  "menu.start": "Social network selector",
+  "menu.page": "Business page",
+  "menu.businessque": "Business questions",
+  "menu.campaignque": "Campaign questions",
+  "menu.campaigndetails": "Campaign details",
+  "menu.dashboard": "Dashboard",
   "menu.second-menu": "Second Menu",
   "menu.second": "Second",
   "menu.ui": "UI",
