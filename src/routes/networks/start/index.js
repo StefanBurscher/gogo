@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Colxx, Separator } from "Components/CustomBootstrap";
 import BreadcrumbContainer from "Components/BreadcrumbContainer";
 import ReactSiemaCarousel from "Components/ReactSiema/ReactSiemaCarousel";
-import { social_network } from "../../../firebase";
+import { social_network } from "../../../auth";
 import {
   setCurrentSocialNetwork
 } from "Redux/actions";

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Colxx, Separator } from "Components/CustomBootstrap";
 import BreadcrumbContainer from "Components/BreadcrumbContainer";
 import ReactSiemaCarousel from "Components/ReactSiema/ReactSiemaCarousel";
-import { social_network } from "../../../firebase";
+import { social_network } from "../../../auth";
 
 
 class Start extends Component {
@@ -17,7 +17,6 @@ class Start extends Component {
     };
   }
   componentDidMount = async () => {
-    var token = window.InstAuth.getAccessToken();
     const user = JSON.parse(this.props.user);
     await social_network.getSleeves(user.id)
       .then((res) => {
