@@ -176,7 +176,7 @@ class TopNav extends Component {
           </svg>
         </NavLink>
 
-        <div className="search" >
+        {/* <div className="search" >
           <Input
             name="searchKeyword"
             id="searchKeyword"
@@ -188,16 +188,19 @@ class TopNav extends Component {
           <span className="search-icon" onClick={e => this.handleSearchIconClick(e)}>
             <i className="simple-icon-magnifier" />
           </span>
-        </div>
+        </div> */}
 
         <a className="navbar-logo" href="/">
-          <span className="logo d-none d-xs-block" />
-          <span className="logo-mobile d-block d-xs-none" />
+          {/* <span className="logo d-none d-xs-block" /> */}
+          {/* <span className="logo-mobile d-block d-xs-none" /> */}
+          <i className="iconsmind-Business-ManWoman" style={{ fontSize: 32, lineHeight: '42px' }} />
+        
+          <span>Social network</span>
         </a>
 
         <div className="ml-auto">
           <div className="header-icons d-inline-block align-middle">
-            <div className="position-relative d-none d-sm-inline-block">
+            {/* <div className="position-relative d-none d-sm-inline-block">
               <UncontrolledDropdown className="dropdown-menu-right">
                 <DropdownToggle className="header-icon" color="empty">
                   <i className="simple-icon-grid" />
@@ -233,7 +236,7 @@ class TopNav extends Component {
                   </NavLink>
                 </DropdownMenu>
               </UncontrolledDropdown>
-            </div>
+            </div> */}
 
             <div className="position-relative d-inline-block">
               <UncontrolledDropdown className="dropdown-menu-right">

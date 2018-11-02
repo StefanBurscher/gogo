@@ -9,7 +9,7 @@ import ReactSiemaCarousel from "Components/ReactSiema/ReactSiemaCarousel";
 import { social_network } from "../../../auth";
 
 
-class Start extends Component {
+class BusinessQuestions extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -138,4 +138,4 @@ const mapStateToProps = ({ authUser }) => {
 };
 export default connect(
   mapStateToProps
-)(Start);
+)(BusinessQuestions);
