@@ -2,129 +2,82 @@ import React, { Component, Fragment } from "react";
 import IntlMessages from "Util/IntlMessages";
 import { Row, Card, CardBody, CardTitle, Button, Jumbotron } from "reactstrap";
 import { connect } from 'react-redux';
+import TagsInput from "react-tagsinput";
 
 import { Colxx, Separator } from "Components/CustomBootstrap";
-import BreadcrumbContainer from "Components/BreadcrumbContainer";
-import ReactSiemaCarousel from "Components/ReactSiema/ReactSiemaCarousel";
-import { social_network } from "../../../auth";
+import axios from 'axios';
+import "react-tagsinput/react-tagsinput.css";
 
 
 class CampaignDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sleeves: []
+      sleeves: [],
+      selectedFile: null,
+      tags: []
     };
   }
-  componentDidMount = async () => {
-    const user = JSON.parse(this.props.user);
-    await social_network.getSleeves(user.id)
-      .then((res) => {
-        this.setState({ sleeves: res.data.data.items })
-      })
-      .catch(error => error);
+  handleTagChange = (tags) => {
+    this.setState({ tags });
   }
-  openLink = url => {
-    window.open(url);
+  fileChangedHandler = (event) => {
+    this.setState({selectedFile: event.target.files})
   }
-  ButtonAction = (props) => {
-    let connected = 0;
-    const { sleeves } = this.state;
-    for (let index = 0; index < sleeves.length; index++) {
-      const sleeve = sleeves[index];
-      if (sleeve.SocialNetwork.name === props.socialNetwork) connected = 1;
+  uploadHandler = () => {
+    const formData = new FormData()
+    let files = [];
+    formData.append('files', this.state.selectedFile);
+    for (let index = 0; index < this.state.selectedFile.length; index++) {
+      const file = this.state.selectedFile[index];
+      files.push(files);
+      formData.append('files-'+index, file, file.name);
     }
-    let getAccessTokenUrl = "";
-    switch (props.socialNetwork) {
-      case "INSTAGRAM":
-        getAccessTokenUrl = "https://www.instagram.com/accounts/login/?next=/oauth/authorize/%3Fclient_id%3D5df48e0684bc4e349f2f093cd9cf953c%26redirect_uri%3Dhttp%3A//207.180.216.94/api/v1/users/register_access_token/%26response_type%3Dcode"
-        break;
-
-      default:
-        break;
-    }
-    return (
-      connected ?
-        <Button outline color="primary" className="mb-2" onClick={() => this.openLink(getAccessTokenUrl)}>
-          <IntlMessages id={"button.manage"} />
-        </Button> :
-        <Button outline color="primary" className="mb-2" onClick={() => this.openLink(getAccessTokenUrl)}>
-          <IntlMessages id={"button.connect"} />
-        </Button>
-    )
+    axios.post('my-domain.com/file-upload', formData)
   }
   render() {
     return (
       <Fragment>
-        <Row>
+        <Row className="mb-4">
           <Colxx xxs="12">
-            <BreadcrumbContainer
-              heading={<IntlMessages id="menu.start" />}
-              match={this.props.match}
-            />
-            <Separator className="mb-5" />
+            <Card>
+              <CardBody>
+                <CardTitle>
+                  <IntlMessages id="form-components.tags" />
+                </CardTitle>
+                <TagsInput
+                  value={this.state.tags}
+                  onChange={this.handleTagChange}
+                  inputProps={{ placeholder: "Tags" }}
+                />
+              </CardBody>
+            </Card>
           </Colxx>
         </Row>
-        <Row>
-          <Colxx md="3" xs="12">
-            <div className="icon-cards-row">
-              <div className="icon-row-item">
-                <Card className="mb-4">
-                  <CardBody className="text-center">
-                    <i className="iconsmind-Facebook" />
-                    <p className="card-text font-weight-semibold mb-0">
-                      <IntlMessages id="dashboards.facebook" />
-                    </p>
-                    <this.ButtonAction socialNetwork="FACEBOOK" />
-                  </CardBody>
-                </Card>
-              </div>
-            </div>
-          </Colxx>
-          <Colxx md="3" xs="12">
-            <div className="icon-cards-row">
-              <div className="icon-row-item">
-                <Card className="mb-4">
-                  <CardBody className="text-center">
-                    <i className="iconsmind-Instagram" />
-                    <p className="card-text font-weight-semibold mb-0">
-                      <IntlMessages id="dashboards.instagram" />
-                    </p>
-                    <this.ButtonAction socialNetwork="INSTAGRAM" />
-                  </CardBody>
-                </Card>
-              </div>
-            </div>
-          </Colxx>
-          <Colxx md="3" xs="12">
-            <div className="icon-cards-row">
-              <div className="icon-row-item">
-                <Card className="mb-4">
-                  <CardBody className="text-center">
-                    <i className="iconsmind-Twitter" />
-                    <p className="card-text font-weight-semibold mb-0">
-                      <IntlMessages id="dashboards.twitter" />
-                    </p>
-                    <this.ButtonAction socialNetwork="TWITTER" />
-                  </CardBody>
-                </Card>
-              </div>
-            </div>
-          </Colxx>
-          <Colxx md="3" xs="12">
-            <div className="icon-cards-row">
-              <div className="icon-row-item">
-                <Card className="mb-4">
-                  <CardBody className="text-center">
-                    <i className="iconsmind-Linkedin" />
-                    <p className="card-text font-weight-semibold mb-0">
-                      <IntlMessages id="dashboards.linkedin" />
-                    </p>
-                    <this.ButtonAction socialNetwork="LINKEDIN" />
-                  </CardBody>
-                </Card>
-              </div>
-            </div>
+        <Row className="mb-4">
+          <Colxx xxs="12">
+            <Card>
+              <CardBody>
+                <CardTitle>
+                  <IntlMessages id="form-components.fine-uploader" />
+                </CardTitle>
+                {/* <Gallery
+                  animationsDisabled={true}
+                  uploader={uploader}
+                  deleteButton-children={<span>Delete</span>}
+                  fileInput-children={<span />}
+                >
+                  <span className="react-fine-uploader-gallery-dropzone-content">
+                    <IntlMessages id="form-components.drop-files-here" />
+                  </span>
+                </Gallery> */}
+                <label class="fileContainer">
+                {this.state.selectedFile && this.state.selectedFile.length ? this.state.selectedFile.length + " files selected" : "Drag or Click here to trigger the file uploader!"}
+                  <input type="file" onChange={this.fileChangedHandler} multiple />
+                </label> <br /> <br />
+                <button onClick={this.uploadHandler}>Upload!</button>
+              </CardBody>
+            </Card>
           </Colxx>
         </Row>
       </Fragment>

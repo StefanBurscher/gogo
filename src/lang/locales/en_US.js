@@ -114,4 +114,8 @@ module.exports = {
   "dashboards.twitter": "Twitter",
   "dashboards.linkedin": "LinkedIn",
 
+
+
+  "form-components.tags": "Tags/keywords",
+  "form-components.fine-uploader": "Upload files",
 };
