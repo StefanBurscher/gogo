@@ -33,7 +33,7 @@ class CampaignDetails extends Component {
       files.push(files);
       formData.append('files-'+index, file, file.name);
     }
-    axios.post('my-domain.com/file-upload', formData)
+    axios.post('http://207.180.216.94/api/v1/images', formData)
   }
   render() {
     return (
